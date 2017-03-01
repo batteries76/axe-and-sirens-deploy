@@ -9,16 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var product_service_1 = require('./product.service');
 var CheckoutComponent = (function () {
-    function CheckoutComponent() {
+    function CheckoutComponent(productService) {
+        this.productService = productService;
+        this.products = [];
+        this.filteredProducts = [];
     }
+    CheckoutComponent.prototype.ngOnInit = function () {
+        console.log("CHECKOUT oninit");
+        this.products = this.productService.getProducts();
+        for (var _i = 0, _a = this.products; _i < _a.length; _i++) {
+            var product = _a[_i];
+            if (product.numberOrderedTotal > 0) {
+                this.filteredProducts.push(product);
+            }
+        }
+    };
     CheckoutComponent = __decorate([
         core_1.Component({
             selector: 'my-checkout',
             templateUrl: 'app/checkout.component.html',
-            styleUrls: ['app/about.component.css']
+            styleUrls: ['app/dashboard.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [product_service_1.ProductService])
     ], CheckoutComponent);
     return CheckoutComponent;
 }());

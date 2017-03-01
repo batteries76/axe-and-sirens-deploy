@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AboutComponent {
 
+  componentHeader = "public/images/headers/header-tag-about-us.png"
 
 }

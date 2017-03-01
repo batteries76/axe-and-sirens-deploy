@@ -16,7 +16,6 @@ var FaqsComponent = (function () {
         core_1.Component({
             selector: 'my-faqs',
             templateUrl: 'app/faqs.component.html',
-            styleUrls: ['app/about.component.css']
         }), 
         __metadata('design:paramtypes', [])
     ], FaqsComponent);

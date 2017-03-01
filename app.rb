@@ -19,7 +19,7 @@ end
 
 data = [
   {id: 11, name: 'Blue T-Shirt'},
-  {id: 12, name: 'Green T-Shirt'},
+  {id: 12, name: 'GreenXXX T-Shirt'},
   {id: 13, name: 'Red T-Shirt'},
   {id: 14, name: 'Yellow T-Shirt'},
   {id: 15, name: 'Purple T-Shirt'},

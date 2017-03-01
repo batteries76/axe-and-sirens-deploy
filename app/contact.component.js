@@ -16,7 +16,6 @@ var ContactComponent = (function () {
         core_1.Component({
             selector: 'my-contact',
             templateUrl: 'app/contact.component.html',
-            styleUrls: ['app/about.component.css']
         }), 
         __metadata('design:paramtypes', [])
     ], ContactComponent);

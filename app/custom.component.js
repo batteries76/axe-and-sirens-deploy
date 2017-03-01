@@ -16,7 +16,6 @@ var CustomComponent = (function () {
         core_1.Component({
             selector: 'my-custom',
             templateUrl: 'app/custom.component.html',
-            styleUrls: ['app/about.component.css']
         }), 
         __metadata('design:paramtypes', [])
     ], CustomComponent);

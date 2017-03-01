@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
+var forms_2 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var angular2_in_memory_web_api_1 = require('angular2-in-memory-web-api');
@@ -24,7 +25,12 @@ var faqs_component_1 = require('./faqs.component');
 var checkout_component_1 = require('./checkout.component');
 var footer_component_1 = require('./footer.component');
 var contact_form_component_1 = require('./contact-form.component');
+var product_display_component_1 = require('./product-display.component');
+var product_modal_component_1 = require('./product-modal.component');
+var modal_order_area_component_1 = require('./modal-order-area.component');
+var cart_counter_component_1 = require('./cart-counter.component');
 var product_service_1 = require('./product.service');
+var modal_service_1 = require('./modal.service');
 var app_routing_1 = require('./app.routing');
 var AppModule = (function () {
     function AppModule() {
@@ -34,6 +40,7 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
+                forms_2.ReactiveFormsModule,
                 http_1.HttpModule,
                 app_routing_1.routing,
                 angular2_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService)
@@ -48,12 +55,19 @@ var AppModule = (function () {
                 faqs_component_1.FaqsComponent,
                 checkout_component_1.CheckoutComponent,
                 footer_component_1.FooterComponent,
-                contact_form_component_1.ContactFormComponent
+                contact_form_component_1.ContactFormComponent,
+                product_display_component_1.ProductDisplayComponent,
+                product_modal_component_1.ProductModalComponent,
+                modal_order_area_component_1.ModalOrderAreaComponent,
+                cart_counter_component_1.CartCounterComponent
             ],
             providers: [
-                product_service_1.ProductService
+                product_service_1.ProductService,
+                modal_service_1.ModalService
             ],
-            bootstrap: [app_component_1.AppComponent]
+            bootstrap: [
+                app_component_1.AppComponent
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

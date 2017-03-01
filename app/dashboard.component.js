@@ -11,20 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var product_service_1 = require('./product.service');
+var modal_service_1 = require('./modal.service');
 var DashboardComponent = (function () {
-    function DashboardComponent(router, productService) {
+    //  @Output() showDialog: boolean = false;
+    //  modalPop: EventEmitter<string> = new EventEmitter<string>();
+    function DashboardComponent(router, productService, modalService) {
         this.router = router;
         this.productService = productService;
+        this.modalService = modalService;
         this.products = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.productService.getProducts()
-            .then(function (products) { return _this.products = products; });
+        this.productService.getHttpProducts()
+            .then(function (products) {
+            _this.products = products;
+            _this.productService.initialiseProducts(products);
+        });
     };
-    DashboardComponent.prototype.gotoDetail = function (product) {
-        var link = ['/detail', product.id];
-        this.router.navigate(link);
+    // ngOnInit(): void {
+    //   this.products = this.productService.getProducts();
+    // }
+    DashboardComponent.prototype.popIt = function (product) {
+        console.log("DASHBOARD: popIt");
+        this.modalService.setCurrentModal(product);
+    };
+    DashboardComponent.prototype.printSomething = function (name, showDialog, product) {
+        console.log('clicked on this one in DASHBOARD!');
+        console.log(name);
+        console.log(showDialog);
+        console.log(product);
     };
     DashboardComponent = __decorate([
         core_1.Component({
@@ -32,7 +48,7 @@ var DashboardComponent = (function () {
             templateUrl: 'app/dashboard.component.html',
             styleUrls: ['app/dashboard.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, product_service_1.ProductService])
+        __metadata('design:paramtypes', [router_1.Router, product_service_1.ProductService, modal_service_1.ModalService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

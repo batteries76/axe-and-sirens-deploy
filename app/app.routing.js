@@ -4,8 +4,6 @@ var about_component_1 = require('./about.component');
 var dashboard_component_1 = require('./dashboard.component');
 var product_detail_component_1 = require('./product-detail.component');
 var contact_component_1 = require('./contact.component');
-var custom_component_1 = require('./custom.component');
-var faqs_component_1 = require('./faqs.component');
 var checkout_component_1 = require('./checkout.component');
 var appRoutes = [
     {
@@ -28,14 +26,6 @@ var appRoutes = [
     {
         path: 'contact',
         component: contact_component_1.ContactComponent
-    },
-    {
-        path: 'faqs',
-        component: faqs_component_1.FaqsComponent
-    },
-    {
-        path: 'custom',
-        component: custom_component_1.CustomComponent
     },
     {
         path: 'checkout',

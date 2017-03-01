@@ -32,14 +32,6 @@ const appRoutes: Routes = [
     component: ContactComponent
   },
   {
-    path: 'faqs',
-    component: FaqsComponent
-  },
-  {
-    path: 'custom',
-    component: CustomComponent
-  },
-  {
     path: 'checkout',
     component: CheckoutComponent
   }

@@ -9,17 +9,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var modal_service_1 = require('./modal.service');
+var product_service_1 = require('./product.service');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(modalService, productService) {
+        var _this = this;
+        this.modalService = modalService;
+        this.productService = productService;
         this.title = 'Axe and Sirens';
+        this.cartTotal = 0;
+        this.productService.cartNumber.subscribe(function (total) {
+            _this.cartTotal = total;
+            console.log("TOTAL is: " + total);
+            console.log("this.cartTotal is: " + _this.cartTotal);
+        });
+        this.showDialog = false;
+        //    this.showDialog = modalService.modalShowing;
+        modalService.modalShowing.subscribe(function (value) {
+            _this.showDialog = value;
+            console.log("value is: " + value);
+            console.log("this.showDialog = " + _this.showDialog);
+        });
+        //    this.currentProductInModal = modalService.currentProductModal;
+        modalService.currentProductModal.subscribe(function (product) {
+            _this.currentProductInModal = product;
+            console.log(product);
+            console.log("this.currentProductInModal = " + _this.currentProductInModal);
+        });
+        this.initModal = false;
+        //    this.initModal = modalService.modalInit;
+        modalService.modalInit.subscribe(function (bool) {
+            _this.initModal = bool;
+            console.log("bool is: " + bool);
+            console.log("this.initModal = " + _this.initModal);
+        });
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n    <img class=\"banner\" src=\"http://placehold.it/850x300\">\n    <h1 class=\"front-component\">{{title}}</h1>\n    <nav>\n      <a routerLink=\"/dashboard\" routerLinkActive=\"active\">Products</a>\n      <a routerLink=\"/about\" routerLinkActive=\"active\">About</a>\n      <a routerLink=\"/contact\" routerLinkActive=\"active\">Contact</a>\n      <a routerLink=\"/checkout\" routerLinkActive=\"active\">Checkout</a>\n      <a routerLink=\"/faqs\" routerLinkActive=\"active\">FAQs</a>\n      <a routerLink=\"/custom\" routerLinkActive=\"active\">Custom</a>\n    </nav>\n    <router-outlet class=\"front-component\"></router-outlet>\n    <my-footer></my-footer>\n  ",
+            templateUrl: 'app/app.component.html',
             styleUrls: ['app/app.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [modal_service_1.ModalService, product_service_1.ProductService])
     ], AppComponent);
     return AppComponent;
 }());

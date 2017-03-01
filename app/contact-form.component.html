@@ -1,13 +1,15 @@
-<div>
-  <div class="contact-form">
-    <!-- <label>name: </label> -->
-    <input type="string" placeholder="name" class="contact-name-email">
-    <!-- <label>email: </label> -->
-    <input type="email" placeholder="email" class="contact-name-email">
-    <!-- <label>message: </label> -->
-    <input type="text" placeholder="message" class="contact-message">
-    <button class="contact-button" (click)="save()">Save</button>
-    <button class="contact-button" (click)="goBack()">Back</button>
-  </div>
+<div class="contact-form">
+  <form (ngSubmit)="onSubmit(myContactFormGroup)" [formGroup]="myContactFormGroup">
 
+    <input type="string" placeholder="Name" [formControl]="myContactFormGroup.controls['name']" id="contact-name" ngModel>
+
+    <input type="email" placeholder="Email" [formControl]="myContactFormGroup.controls['email']" id="contact-email" ngModel>
+
+    <input type="text" placeholder="Your message" [formControl]="myContactFormGroup.controls['message']" id="contact-message" ngModel>
+
+    <input type="string" placeholder="Phone number" [formControl]="myContactFormGroup.controls['phoneNumber']" id="contact-number" ngModel>
+
+    <button id="contact-button" type="submit">Send Message</button>
+
+  </form>
 </div>
