@@ -9,19 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var ProductDetailComponent = (function () {
-    function ProductDetailComponent() {
+var product_1 = require('./product');
+var CheckoutDetailComponent = (function () {
+    function CheckoutDetailComponent() {
     }
-    ProductDetailComponent.prototype.ngOnInit = function () { };
-    ProductDetailComponent = __decorate([
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', product_1.Product)
+    ], CheckoutDetailComponent.prototype, "product", void 0);
+    CheckoutDetailComponent = __decorate([
         core_1.Component({
-            selector: 'my-product-detail',
-            templateUrl: 'app/product-detail.component.html',
-            styleUrls: ['app/product-detail.component.css']
+            selector: 'my-checkout-detail',
+            templateUrl: 'app/checkout-detail.component.html',
         }), 
         __metadata('design:paramtypes', [])
-    ], ProductDetailComponent);
-    return ProductDetailComponent;
+    ], CheckoutDetailComponent);
+    return CheckoutDetailComponent;
 }());
-exports.ProductDetailComponent = ProductDetailComponent;
-//# sourceMappingURL=product-detail.component.js.map
+exports.CheckoutDetailComponent = CheckoutDetailComponent;
+//# sourceMappingURL=checkout-detail.component.js.map

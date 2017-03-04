@@ -2,9 +2,21 @@
   float: left;
 }
 
+.checkout-details{
+
+}
+
+.checkout-product {
+  float: right;
+}
+
 .modal-heading {
   font-size: 28px;
   text-align: center;
+}
+
+#modal-price {
+  colour: lightblue;
 }
 
 .modal-details {
@@ -17,8 +29,9 @@
 }
 
 .dialog {
+  color: lightslategrey;
   z-index: 1200;
-  background-color: green;
+  background-color: darkslategrey;
   position: fixed;
   /*margin: auto;*/
   top: 13%;

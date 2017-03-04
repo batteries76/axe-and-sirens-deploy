@@ -14,12 +14,16 @@ export class ModalOrderAreaComponent implements OnInit {
   myOrderFormGroup: FormGroup;
 
   @Input() modalProduct: Product;
-  
+
   small: AbstractControl;
   medium: AbstractControl;
   large: AbstractControl;
 
   ngOnInit() {}
+
+  setCheckoutProducts(){
+    this.productService.getCheckoutProducts();
+  }
 
   constructor(fb: FormBuilder, private productService: ProductService) {
     this.myOrderFormGroup = fb.group({
@@ -31,7 +35,6 @@ export class ModalOrderAreaComponent implements OnInit {
     this.small = this.myOrderFormGroup.controls['small'];
     this.medium = this.myOrderFormGroup.controls['medium'];
     this.large = this.myOrderFormGroup.controls['large'];
-
   }
 
   onAddToCart(myOrder: any, productID: number): void {
@@ -39,16 +42,9 @@ export class ModalOrderAreaComponent implements OnInit {
     console.log('You submitted myOrder.value = ', myOrder.value);
     console.log('You submitted myOrder.value.small = ', myOrder.value.small);
 
-    // product.numberOrderedSmall = +myOrder.value.small;
-    // product.numberOrderedMedium = +myOrder.value.medium;
-    // product.numberOrderedLarge = +myOrder.value.large;
-    //
-    // product.numberOrderedTotal = product.numberOrderedSmall + product.numberOrderedMedium + product.numberOrderedLarge;
-
     console.log("in onAddToCart");
     console.log(productID);
     this.productService.updateProduct(productID, myOrder);
-
     this.productService.getCartTotal();
   }
 

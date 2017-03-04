@@ -17,8 +17,20 @@ export class AppComponent {
   showDialog: boolean;
   currentProductInModal: Product;
   cartTotal: number = 0;
+  appProducts: Product[];
+
+  setCheckoutProducts(){
+    this.productService.getCheckoutProducts();
+  }
 
   constructor(private modalService: ModalService, private productService: ProductService) {
+
+    this.productService.getHttpProducts()
+      .then(products => {
+        console.log("APP CONSTRUCTOR");
+        this.appProducts = products;
+        this.productService.initialiseProducts(products);
+    });
 
     this.productService.cartNumber.subscribe((total) => {
       this.cartTotal = total;
@@ -28,14 +40,11 @@ export class AppComponent {
 
     this.showDialog = false;
 
-//    this.showDialog = modalService.modalShowing;
     modalService.modalShowing.subscribe((value) => {
       this.showDialog = value;
       console.log("value is: " + value);
       console.log("this.showDialog = " + this.showDialog);
     });
-
-//    this.currentProductInModal = modalService.currentProductModal;
 
     modalService.currentProductModal.subscribe((product) => {
       this.currentProductInModal = product;
@@ -44,7 +53,6 @@ export class AppComponent {
     });
 
     this.initModal = false;
-//    this.initModal = modalService.modalInit;
 
     modalService.modalInit.subscribe((bool) => {
       this.initModal = bool;

@@ -12,23 +12,31 @@ var core_1 = require('@angular/core');
 var product_service_1 = require('./product.service');
 var CheckoutComponent = (function () {
     function CheckoutComponent(productService) {
+        var _this = this;
         this.productService = productService;
-        this.products = [];
         this.filteredProducts = [];
-    }
-    CheckoutComponent.prototype.ngOnInit = function () {
-        console.log("CHECKOUT oninit");
-        this.products = this.productService.getProducts();
-        for (var _i = 0, _a = this.products; _i < _a.length; _i++) {
-            var product = _a[_i];
-            if (product.numberOrderedTotal > 0) {
-                this.filteredProducts.push(product);
+        this.productService.filteredProductSubject.subscribe(function (products) {
+            console.log("CHECKOUT products changed");
+            _this.filteredProducts = products;
+            console.log(_this.filteredProducts);
+            _this.totalCost = 0;
+            for (var _i = 0, _a = _this.filteredProducts; _i < _a.length; _i++) {
+                var product = _a[_i];
+                _this.totalCost += product.numberOrderedTotal * product.price;
             }
-        }
+        });
+    }
+    CheckoutComponent.prototype.ngOnChanges = function () {
+        console.log("CHECKOUT Changes");
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], CheckoutComponent.prototype, "filteredProducts", void 0);
     CheckoutComponent = __decorate([
         core_1.Component({
             selector: 'my-checkout',
+            changeDetection: core_1.ChangeDetectionStrategy.Default,
             templateUrl: 'app/checkout.component.html',
             styleUrls: ['app/dashboard.component.css']
         }), 

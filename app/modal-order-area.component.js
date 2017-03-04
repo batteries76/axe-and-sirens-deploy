@@ -25,15 +25,13 @@ var ModalOrderAreaComponent = (function () {
         this.large = this.myOrderFormGroup.controls['large'];
     }
     ModalOrderAreaComponent.prototype.ngOnInit = function () { };
+    ModalOrderAreaComponent.prototype.setCheckoutProducts = function () {
+        this.productService.getCheckoutProducts();
+    };
     ModalOrderAreaComponent.prototype.onAddToCart = function (myOrder, productID) {
         console.log('You submitted order = ', myOrder);
         console.log('You submitted myOrder.value = ', myOrder.value);
         console.log('You submitted myOrder.value.small = ', myOrder.value.small);
-        // product.numberOrderedSmall = +myOrder.value.small;
-        // product.numberOrderedMedium = +myOrder.value.medium;
-        // product.numberOrderedLarge = +myOrder.value.large;
-        //
-        // product.numberOrderedTotal = product.numberOrderedSmall + product.numberOrderedMedium + product.numberOrderedLarge;
         console.log("in onAddToCart");
         console.log(productID);
         this.productService.updateProduct(productID, myOrder);

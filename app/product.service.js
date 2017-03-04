@@ -17,44 +17,61 @@ var ProductService = (function () {
         this.http = http;
         this.productsUrl = 'app/products';
         this.productSource = [];
+        this.productSourceSubject = new Subject_1.Subject();
         // productSubject: = new Subject<Product[]>();
         this.cartNumber = new Subject_1.Subject();
         this.cartCounter = 0;
+        this.index = -1;
+        this.checkoutProducts = [];
+        this.filteredProducts = [];
+        this.filteredProductSubject = new Subject_1.Subject();
     }
+    ProductService.prototype.getCheckoutProducts = function () {
+        this.filteredProducts = [];
+        console.log("GET CHECKOUT PRODUCTS");
+        this.checkoutProducts = this.getProducts();
+        for (var _i = 0, _a = this.productSource; _i < _a.length; _i++) {
+            var product = _a[_i];
+            if (product.numberOrderedTotal > 0) {
+                this.filteredProducts.push(product);
+            }
+        }
+        this.filteredProductSubject.next(this.filteredProducts);
+    };
     ProductService.prototype.getHttpProducts = function () {
         return this.http.get(this.productsUrl)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
-    ProductService.prototype.ngOnInit = function () {
-        console.log("product service OnInit");
-        getHttpProducts();
-    };
     ProductService.prototype.initialiseProducts = function (products) {
+        console.log("product service INITIALISE products");
         this.productSource = products;
+        this.productSourceSubject.next(products);
     };
     ProductService.prototype.getProducts = function () {
         return this.productSource;
     };
     ProductService.prototype.updateProduct = function (productID, myOrder) {
+        var _this = this;
         console.log("in UPDATE PRODUCT");
         console.log(this.productSource);
         console.log(productID);
-        for (var _i = 0, _a = this.productSource; _i < _a.length; _i++) {
-            var product = _a[_i];
-            console.log("in UPDATE PRODUCT - LOOP");
-            console.log(productID);
-            console.log(product.id);
-            if (product.id == productID) {
-                console.log("HIT IF");
-                product.numberOrderedSmall += +myOrder.value.small;
-                product.numberOrderedMedium += +myOrder.value.medium;
-                product.numberOrderedLarge += +myOrder.value.large;
-                product.numberOrderedTotal = product.numberOrderedSmall + product.numberOrderedMedium + product.numberOrderedLarge;
+        this.productSource.forEach(function (product, index) {
+            if (product.id === productID) {
+                _this.index = index;
+                console.log("Index FOUND! - " + index);
+                console.log(product);
+                console.log(_this.index);
             }
-        }
-        // this.productSubject.next(this.productSource);
+        });
+        this.productSource[this.index].numberOrderedSmall += +myOrder.value.small;
+        this.productSource[this.index].numberOrderedMedium += +myOrder.value.medium;
+        this.productSource[this.index].numberOrderedLarge += +myOrder.value.large;
+        this.productSource[this.index].numberOrderedTotal = this.productSource[this.index].numberOrderedSmall + this.productSource[this.index].numberOrderedMedium + this.productSource[this.index].numberOrderedLarge;
+    };
+    ProductService.prototype.upDateSubject = function () {
+        this.productSourceSubject.next(this.productSource);
     };
     ProductService.prototype.getCartTotal = function () {
         this.cartCounter = 0;
@@ -73,10 +90,6 @@ var ProductService = (function () {
     ProductService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
-    };
-    ProductService.prototype.getProduct = function (id) {
-        return this.getHttpProducts()
-            .then(function (products) { return products.find(function (product) { return product.id === id; }); });
     };
     ProductService = __decorate([
         core_1.Injectable(), 

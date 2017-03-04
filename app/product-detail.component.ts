@@ -12,24 +12,26 @@ import { Product }                  from './product';
 })
 export class ProductDetailComponent implements OnInit {
 
-  @Input()
-  product: Product;
 
-  constructor(
-  private productService: ProductService,
-  private route: ActivatedRoute
-  ) { }
-
-  ngOnInit(): void {
-    this.route.params.forEach((params: Params) => {
-    let id = +params['id'];
-    this.productService.getProduct(id)
-      .then(product => this.product = product);
-    });
-  }
-
-  goBack(): void {
-    window.history.back();
-  }
+  ngOnInit(){}
+  // @Input()
+  // product: Product;
+  //
+  // constructor(
+  // private productService: ProductService,
+  // private route: ActivatedRoute
+  // ) { }
+  //
+  // ngOnInit(): void {
+  //   this.route.params.forEach((params: Params) => {
+  //   let id = +params['id'];
+  //   this.productService.getProduct(id)
+  //     .then(product => this.product = product);
+  //   });
+  // }
+  //
+  // goBack(): void {
+  //   window.history.back();
+  // }
 
 }

@@ -29,6 +29,7 @@ var product_display_component_1 = require('./product-display.component');
 var product_modal_component_1 = require('./product-modal.component');
 var modal_order_area_component_1 = require('./modal-order-area.component');
 var cart_counter_component_1 = require('./cart-counter.component');
+var checkout_detail_component_1 = require('./checkout-detail.component');
 var product_service_1 = require('./product.service');
 var modal_service_1 = require('./modal.service');
 var app_routing_1 = require('./app.routing');
@@ -59,7 +60,8 @@ var AppModule = (function () {
                 product_display_component_1.ProductDisplayComponent,
                 product_modal_component_1.ProductModalComponent,
                 modal_order_area_component_1.ModalOrderAreaComponent,
-                cart_counter_component_1.CartCounterComponent
+                cart_counter_component_1.CartCounterComponent,
+                checkout_detail_component_1.CheckoutDetailComponent
             ],
             providers: [
                 product_service_1.ProductService,

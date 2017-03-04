@@ -22,6 +22,7 @@ import { ProductDisplayComponent } from './product-display.component';
 import { ProductModalComponent }   from './product-modal.component';
 import { ModalOrderAreaComponent } from './modal-order-area.component';
 import { CartCounterComponent }    from './cart-counter.component';
+import { CheckoutDetailComponent } from './checkout-detail.component';
 
 import { ProductService }          from './product.service';
 import { ModalService }            from './modal.service';
@@ -51,7 +52,8 @@ import { routing }                 from './app.routing';
     ProductDisplayComponent,
     ProductModalComponent,
     ModalOrderAreaComponent,
-    CartCounterComponent
+    CartCounterComponent,
+    CheckoutDetailComponent
   ],
   providers: [
     ProductService,

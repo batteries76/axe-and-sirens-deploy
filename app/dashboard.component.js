@@ -13,25 +13,29 @@ var router_1 = require('@angular/router');
 var product_service_1 = require('./product.service');
 var modal_service_1 = require('./modal.service');
 var DashboardComponent = (function () {
-    //  @Output() showDialog: boolean = false;
-    //  modalPop: EventEmitter<string> = new EventEmitter<string>();
     function DashboardComponent(router, productService, modalService) {
+        var _this = this;
         this.router = router;
         this.productService = productService;
         this.modalService = modalService;
-        this.products = [];
+        console.log("DASHBOARD CONSTRUCTOR");
+        this.productService.productSourceSubject.subscribe(function (products) {
+            console.log("DASHBOARD products changed");
+            _this.products = products;
+        });
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.productService.getHttpProducts()
-            .then(function (products) {
+        this.productService.upDateSubject();
+        console.log("DASHBOARD ONINIT");
+        this.productService.productSourceSubject.subscribe(function (products) {
+            console.log("DASHBOARD products changed");
             _this.products = products;
-            _this.productService.initialiseProducts(products);
         });
     };
-    // ngOnInit(): void {
-    //   this.products = this.productService.getProducts();
-    // }
+    DashboardComponent.prototype.ngOnChanges = function () {
+        console.log("DAMN DASHBOARD CHANGED");
+    };
     DashboardComponent.prototype.popIt = function (product) {
         console.log("DASHBOARD: popIt");
         this.modalService.setCurrentModal(product);

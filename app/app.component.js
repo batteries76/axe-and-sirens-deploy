@@ -18,32 +18,38 @@ var AppComponent = (function () {
         this.productService = productService;
         this.title = 'Axe and Sirens';
         this.cartTotal = 0;
+        this.productService.getHttpProducts()
+            .then(function (products) {
+            console.log("APP CONSTRUCTOR");
+            _this.appProducts = products;
+            _this.productService.initialiseProducts(products);
+        });
         this.productService.cartNumber.subscribe(function (total) {
             _this.cartTotal = total;
             console.log("TOTAL is: " + total);
             console.log("this.cartTotal is: " + _this.cartTotal);
         });
         this.showDialog = false;
-        //    this.showDialog = modalService.modalShowing;
         modalService.modalShowing.subscribe(function (value) {
             _this.showDialog = value;
             console.log("value is: " + value);
             console.log("this.showDialog = " + _this.showDialog);
         });
-        //    this.currentProductInModal = modalService.currentProductModal;
         modalService.currentProductModal.subscribe(function (product) {
             _this.currentProductInModal = product;
             console.log(product);
             console.log("this.currentProductInModal = " + _this.currentProductInModal);
         });
         this.initModal = false;
-        //    this.initModal = modalService.modalInit;
         modalService.modalInit.subscribe(function (bool) {
             _this.initModal = bool;
             console.log("bool is: " + bool);
             console.log("this.initModal = " + _this.initModal);
         });
     }
+    AppComponent.prototype.setCheckoutProducts = function () {
+        this.productService.getCheckoutProducts();
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',

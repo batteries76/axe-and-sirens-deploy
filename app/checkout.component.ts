@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -9,25 +9,29 @@ import { ModalService } from './modal.service';
 
 @Component({
   selector: 'my-checkout',
+  changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: 'app/checkout.component.html',
   styleUrls: [ 'app/dashboard.component.css' ]
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnChanges {
 
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
+  @Input() filteredProducts: Product[] = [];
+  totalCost: number;
 
   constructor(private productService: ProductService) {
+    this.productService.filteredProductSubject.subscribe(products => {
+      console.log("CHECKOUT products changed");
+      this.filteredProducts = products;
+      console.log(this.filteredProducts);
+      this.totalCost = 0;
+      for (let product of this.filteredProducts){
+        this.totalCost += product.numberOrderedTotal*product.price;
+      }
+    });
   }
 
-  ngOnInit() {
-    console.log("CHECKOUT oninit")
-    this.products = this.productService.getProducts()
-    for (let product of this.products){
-      if(product.numberOrderedTotal>0){
-        this.filteredProducts.push(product);
-      }
-    }
+  ngOnChanges() {
+    console.log("CHECKOUT Changes");
   }
 
 }

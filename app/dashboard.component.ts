@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 
 import { Router }            from '@angular/router';
 
@@ -10,27 +10,32 @@ import { ModalService }      from './modal.service';
   selector: 'my-dashboard',
   templateUrl: 'app/dashboard.component.html',
   styleUrls: [ 'app/dashboard.component.css' ]
+//  directives: ChangeDetectionStrategy.Default
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnChanges {
 
-  products: Product[] = [];
-//  @Output() showDialog: boolean = false;
-//  modalPop: EventEmitter<string> = new EventEmitter<string>();
+  products: Product[];
 
   constructor(private router: Router, private productService: ProductService, private modalService: ModalService) {
+    console.log("DASHBOARD CONSTRUCTOR");
+    this.productService.productSourceSubject.subscribe(products => {
+      console.log("DASHBOARD products changed");
+      this.products = products;
+    });
   }
 
   ngOnInit(): void {
-    this.productService.getHttpProducts()
-      .then(products => {
-        this.products = products;
-        this.productService.initialiseProducts(products);
-        });
+    this.productService.upDateSubject()
+    console.log("DASHBOARD ONINIT");
+    this.productService.productSourceSubject.subscribe(products => {
+      console.log("DASHBOARD products changed");
+      this.products = products;
+    });
   }
 
-  // ngOnInit(): void {
-  //   this.products = this.productService.getProducts();
-  // }
+  ngOnChanges(){
+    console.log("DAMN DASHBOARD CHANGED")
+  }
 
   popIt(product: Product): void {
     console.log("DASHBOARD: popIt");

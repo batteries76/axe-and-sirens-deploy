@@ -12,13 +12,31 @@ export class ProductService {
   private productsUrl = 'app/products';
 
   productSource: Product[] = [];
+  productSourceSubject = new Subject<Product[]>();
   // productSubject: = new Subject<Product[]>();
 
   cartNumber = new Subject<number>();
   cartCounter: number = 0;
 
-  constructor(private http: Http) {
+  index: number = -1;
 
+  checkoutProducts: Product[] = [];
+  filteredProducts: Product[] = [];
+  filteredProductSubject = new Subject<Product[]>();
+
+  getCheckoutProducts() {
+    this.filteredProducts = [];
+    console.log("GET CHECKOUT PRODUCTS");
+    this.checkoutProducts = this.getProducts();
+    for (let product of this.productSource){
+      if(product.numberOrderedTotal>0){
+        this.filteredProducts.push(product);
+      }
+    }
+    this.filteredProductSubject.next(this.filteredProducts);
+  }
+
+  constructor(private http: Http) {
   }
 
   getHttpProducts() {
@@ -28,13 +46,10 @@ export class ProductService {
                .catch(this.handleError);
   }
 
-  ngOnInit() {
-    console.log("product service OnInit");
-    getHttpProducts();
-  }
-
   initialiseProducts(products: Product[]) {
+    console.log("product service INITIALISE products");
     this.productSource = products;
+    this.productSourceSubject.next(products);
   }
 
   getProducts(): Product[] {
@@ -45,20 +60,25 @@ export class ProductService {
     console.log("in UPDATE PRODUCT");
     console.log(this.productSource);
     console.log(productID);
-    for (let product of this.productSource){
-      console.log("in UPDATE PRODUCT - LOOP");
-      console.log(productID);
-      console.log(product.id);
-      if (product.id == productID){
-        console.log("HIT IF");
-        product.numberOrderedSmall += +myOrder.value.small;
-        product.numberOrderedMedium += +myOrder.value.medium;
-        product.numberOrderedLarge += +myOrder.value.large;
 
-        product.numberOrderedTotal = product.numberOrderedSmall + product.numberOrderedMedium + product.numberOrderedLarge;
+    this.productSource.forEach((product, index) => {
+      if(product.id === productID){
+        this.index = index;
+        console.log("Index FOUND! - " + index);
+        console.log(product);
+        console.log(this.index);
       }
-    }
-    // this.productSubject.next(this.productSource);
+    });
+
+    this.productSource[this.index].numberOrderedSmall += +myOrder.value.small;
+    this.productSource[this.index].numberOrderedMedium += +myOrder.value.medium;
+    this.productSource[this.index].numberOrderedLarge += +myOrder.value.large;
+
+    this.productSource[this.index].numberOrderedTotal = this.productSource[this.index].numberOrderedSmall + this.productSource[this.index].numberOrderedMedium + this.productSource[this.index].numberOrderedLarge;
+  }
+
+  upDateSubject(){
+    this.productSourceSubject.next(this.productSource);
   }
 
   getCartTotal(): void {
@@ -81,11 +101,6 @@ export class ProductService {
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
-  }
-
-  getProduct(id: number): Promise<Product> {
-    return this.getHttpProducts()
-               .then(products => products.find(product => product.id === id));
   }
 
 }
