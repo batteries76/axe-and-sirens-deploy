@@ -15,19 +15,23 @@
 .biggest-about{
    width: 900px;
    z-index: -1000;
+   /*display: none;*/
 }
 
 .middle-about{
    width: 760px;
+   z-index: -1000;
 }
 
 .smallest-about{
    width: 380px;
+   z-index: -1000;
 }
 
-@media (min-width: 767px){ //some value
+@media screen and (min-width: 767px){
    .biggest-about{
      display: block;
+     z-index: -1000;
    }
 
    .middle-about{
@@ -39,7 +43,7 @@
    }
 }
 
-@media (min-width: 480px) and (max-width: 767px){ //some value
+@media screen and (min-width: 480px) and (max-width: 767px){
    .biggest-about{
      display: none;
    }
@@ -53,7 +57,7 @@
    }
 }
 
-@media (max-width: 480px) { //some value
+@media screen and (max-width: 480px) {
    .biggest-about{
      display: none;
    }
