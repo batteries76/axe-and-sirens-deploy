@@ -8,12 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
-var product_service_1 = require("./product.service");
-var modal_service_1 = require("./modal.service");
-var product_1 = require("./product");
+var core_1 = require('@angular/core');
+var forms_1 = require('@angular/forms');
+var product_service_1 = require('./product.service');
+var modal_service_1 = require('./modal.service');
+var product_1 = require('./product');
 var ModalOrderAreaComponent = (function () {
     // modalShut() {
     //   console.log("modalShut!!")
@@ -44,19 +43,19 @@ var ModalOrderAreaComponent = (function () {
         this.productService.updateProduct(productID, myOrder);
         this.productService.getCartTotal();
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', product_1.Product)
+    ], ModalOrderAreaComponent.prototype, "modalProduct", void 0);
+    ModalOrderAreaComponent = __decorate([
+        core_1.Component({
+            selector: 'my-modal-order-area',
+            templateUrl: 'app/modal-order-area.component.html',
+            styleUrls: ['app/dashboard.component.css']
+        }), 
+        __metadata('design:paramtypes', [forms_1.FormBuilder, product_service_1.ProductService, modal_service_1.ModalService])
+    ], ModalOrderAreaComponent);
     return ModalOrderAreaComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", product_1.Product)
-], ModalOrderAreaComponent.prototype, "modalProduct", void 0);
-ModalOrderAreaComponent = __decorate([
-    core_1.Component({
-        selector: 'my-modal-order-area',
-        templateUrl: 'app/modal-order-area.component.html',
-        styleUrls: ['app/dashboard.component.css']
-    }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, product_service_1.ProductService, modal_service_1.ModalService])
-], ModalOrderAreaComponent);
 exports.ModalOrderAreaComponent = ModalOrderAreaComponent;
 //# sourceMappingURL=modal-order-area.component.js.map

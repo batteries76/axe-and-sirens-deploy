@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var product_service_1 = require('./product.service');
-var modal_service_1 = require('./modal.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var product_service_1 = require("./product.service");
+var modal_service_1 = require("./modal.service");
 var DashboardComponent = (function () {
     function DashboardComponent(router, productService, modalService) {
         var _this = this;
@@ -46,15 +47,16 @@ var DashboardComponent = (function () {
         console.log(showDialog);
         console.log(product);
     };
-    DashboardComponent = __decorate([
-        core_1.Component({
-            selector: 'my-dashboard',
-            templateUrl: 'app/dashboard.component.html',
-            styleUrls: ['app/dashboard.component.css']
-        }), 
-        __metadata('design:paramtypes', [router_1.Router, product_service_1.ProductService, modal_service_1.ModalService])
-    ], DashboardComponent);
     return DashboardComponent;
 }());
+DashboardComponent = __decorate([
+    core_1.Component({
+        selector: 'my-dashboard',
+        templateUrl: 'app/dashboard.component.html',
+        styleUrls: ['app/dashboard.component.css']
+        //  directives: ChangeDetectionStrategy.Default
+    }),
+    __metadata("design:paramtypes", [router_1.Router, product_service_1.ProductService, modal_service_1.ModalService])
+], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map
